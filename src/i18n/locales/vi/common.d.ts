@@ -1,1 +1,1 @@
-export declare const resources: {}
+export declare const resources: {  "button.cancel": "Hủy"}

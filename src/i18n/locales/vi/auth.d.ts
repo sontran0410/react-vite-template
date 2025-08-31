@@ -1,0 +1,1 @@
+export declare const resources: {  "field.username": "Tên đăng nhập","field.password": "Mật khẩu"}

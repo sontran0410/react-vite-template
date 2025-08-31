@@ -1,5 +1,5 @@
 /// <reference types="vitest/config" />
-
+import iconify from "@tomjs/vite-plugin-iconify";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
@@ -25,7 +25,10 @@ export default defineConfig(async () => {
       i18nextVitePlugin({
         sourceDir: path.resolve(__dirname, "src/i18n/locales"),
       }),
-      i18nextLoader({ paths: [path.resolve(__dirname, "src/i18n/locales")] }),
+      i18nextLoader({
+        paths: [path.resolve(__dirname, "src/i18n/locales")],
+        namespaceResolution: "basename",
+      }),
       basicSsl(),
       devtools(),
       tanstackRouter({
@@ -34,6 +37,7 @@ export default defineConfig(async () => {
       }),
       react(),
       tailwindcss(),
+      iconify(),
     ],
     test: {
       projects: [

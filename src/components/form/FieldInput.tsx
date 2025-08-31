@@ -10,7 +10,6 @@ const FieldInput: React.FC<
   }
 > = ({ label, leftIcon, ...props }) => {
   const field = useFieldContext<string>();
-
   return (
     <div className=" flex flex-col space-y-1.5">
       <Label htmlFor="email">{label}</Label>
@@ -28,6 +27,11 @@ const FieldInput: React.FC<
           onChange={(e) => field.handleChange(e.currentTarget.value)}
         />
       </div>
+      {!field.state.meta.isValid && (
+        <p className="px-1 text-xs text-red-600">
+          {field.state.meta.errors.map(({ message }) => message).join(", ")}
+        </p>
+      )}
     </div>
   );
 };

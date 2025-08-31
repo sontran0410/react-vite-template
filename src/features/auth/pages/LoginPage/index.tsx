@@ -13,36 +13,44 @@ import {
 import { cn } from "@/lib/utils";
 import i18next from "i18next";
 import { Icon } from "@iconify/react";
+import { loginReuestSchema } from "../../models";
 export default function LoginPage() {
   const form = useAppForm({
     defaultValues: {
       username: "",
       password: "",
     },
+    validators: {
+      onSubmit: loginReuestSchema,
+    },
+    onSubmit: (value) => {
+      console.log("submit login", value);
+    },
   });
   return (
-    <form.AppForm>
-      <div className="relative flex h-svh w-full items-center justify-center over">
-        <AnimatedGridPattern
-          className={cn(
-            "absolute",
-            "[mask-image:radial-gradient(700px_circle_at_center,white,transparent)]",
-            "inset-x-0 inset-y-[-30%] h-[200%] skew-y-12"
-          )}
-        />
-        <Card className="relative w-[350px] overflow-hidden">
-          <CardHeader>
-            <CardTitle>Login</CardTitle>
-            <CardDescription>
-              Enter your credentials to access your account.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-              }}
-            >
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
+    >
+      <form.AppForm>
+        <div className="relative flex h-svh w-full items-center justify-center over">
+          <AnimatedGridPattern
+            className={cn(
+              "absolute",
+              "[mask-image:radial-gradient(700px_circle_at_center,white,transparent)]",
+              "inset-x-0 inset-y-[-30%] h-[200%] skew-y-12"
+            )}
+          />
+          <Card className="relative w-[350px] overflow-hidden">
+            <CardHeader>
+              <CardTitle>Login</CardTitle>
+              <CardDescription>
+                Enter your credentials to access your account.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
               <div className="grid w-full items-center gap-4">
                 <form.AppField
                   name="username"
@@ -70,14 +78,16 @@ export default function LoginPage() {
                   )}
                 />
               </div>
-            </form>
-          </CardContent>
-          <CardFooter className="flex">
-            <Button className="w-full">Login</Button>
-          </CardFooter>
-          <BorderBeam duration={8} size={100} />
-        </Card>
-      </div>
-    </form.AppForm>
+            </CardContent>
+            <CardFooter className="flex">
+              <Button className="w-full">
+                {i18next.t("auth:button.login")}
+              </Button>
+            </CardFooter>
+            <BorderBeam duration={8} size={100} />
+          </Card>
+        </div>
+      </form.AppForm>
+    </form>
   );
 }
